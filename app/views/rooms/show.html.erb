@@ -1,0 +1,69 @@
+<h2>Room <%= @room.code %></h2>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @room.code %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @room.capacity %>
+</p>
+
+<p>
+  <strong>Occupation Rate (Week):</strong>
+  50%
+</p>
+
+<p>
+  <strong>Occupation Rate (Month):</strong>
+  25%
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @room.notes %>
+</p>
+
+<h3>Reservations</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Period</th>
+      <th>Duration</th>
+      <th width="30%">Guest Name</th>
+      <th># of guests</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @room.reservations.any? %>
+      <% @room.reservations.each do |reservation| %>
+        <tr>
+          <td><%= reservation.code %></td>
+          <td><%= l reservation.start_date %> to <%= l reservation.end_date %></td>
+          <td><%= pluralize(reservation.duration, 'night') %></td>
+          <td><%= reservation.guest_name %></td>
+          <td><%= pluralize(reservation.number_of_guests, 'guest') %></td>
+          <td><%= link_to 'Destroy', reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="6">
+          There are no reservations for this room yet.
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+
+<%= link_to 'Edit', edit_room_path(@room) %> |
+<%= link_to 'Back', rooms_path %>

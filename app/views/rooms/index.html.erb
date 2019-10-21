@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<section class="global-occupation">
+  <h2>Global Occupation</h2>
+  <div class="global-occupation-box">
+    <h3>Week</h3>
+    <span class="global-occupation-rate">50%</span><br/>
+    <small>in the next 7 days</small>
+  </div>
+  <div class="global-occupation-box">
+    <h3>Month</h3>
+    <span class="global-occupation-rate">25%</span><br/>
+    <small>in the next 30 days</small>
+  </div>
+</section>
+
+<section class="listing">
+  <h2>Rooms</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Capacity</th>
+        <th colspan="2" width="30%">Occupation (Week / Month)</th>
+        <th colspan="3">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if @rooms.any? %>
+        <% @rooms.each do |room| %>
+          <tr>
+            <td><%= room.code %></td>
+            <td><%= pluralize(room.capacity, 'person', 'people') %></td>
+            <td>50%</td>
+            <td>25%</td>
+            <td><%= link_to 'Show', room %></td>
+            <td><%= link_to 'Edit', edit_room_path(room) %></td>
+            <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <td colspan="7">There are no rooms in the Guava Inn yet.</td>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+<br/>
+
+<%= link_to 'New Reservation', search_reservations_path %> |
+<%= link_to 'New Room', new_room_path %>

@@ -1,0 +1,28 @@
+.global-occupation {
+  .global-occupation-box {
+    margin-bottom: 1em;
+    margin-right: 1em;
+    padding: 0.75em 1.25em;
+    float: left;
+    background-color: #eee;
+    font-size: 1.25em;
+    line-height: 1.5;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .global-occupation-rate {
+      font-size: 2em;
+    }
+
+    small {
+      font-size: 0.75em;
+    }
+  }
+}
+
+h2 {
+  clear: both;
+}
