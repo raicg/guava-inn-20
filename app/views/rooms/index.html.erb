@@ -4,12 +4,12 @@
   <h2>Global Occupation</h2>
   <div class="global-occupation-box">
     <h3>Week</h3>
-    <span class="global-occupation-rate">50%</span><br/>
+    <span class="global-occupation-rate"><%= @global_week_occupation.round(2) %>%</span><br/>
     <small>in the next 7 days</small>
   </div>
   <div class="global-occupation-box">
     <h3>Month</h3>
-    <span class="global-occupation-rate">25%</span><br/>
+    <span class="global-occupation-rate"><%= @global_month_occupation.round(2) %>%</span><br/>
     <small>in the next 30 days</small>
   </div>
 </section>
