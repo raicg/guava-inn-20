@@ -13,6 +13,26 @@ class Reservation < ApplicationRecord
     end
   end
 
+  def remaing_days_until_custom_date(custom_date)
+    if start_date.present? && end_date.present? && end_date > start_date
+      if Date.today > end_date
+        0
+      elsif Date.today < start_date
+        if custom_date <= end_date
+          (custom_date - start_date).to_i
+        else
+          (end_date - start_date).to_i
+        end
+      else
+        if custom_date <= end_date
+          (custom_date - start_date).to_i - (Date.today - start_date).to_i
+        else
+          (end_date - start_date).to_i - (Date.today - start_date).to_i
+        end
+      end
+    end
+  end
+
   def code
     if id.present? && room&.code.present?
       formatted_id = '%02d' % id
