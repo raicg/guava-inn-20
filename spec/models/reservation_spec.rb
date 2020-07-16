@@ -37,24 +37,24 @@ RSpec.describe Reservation, type: :model do
   end
 
   it 'validates that number_of_guests should not be zero' do
-    room = Reservation.new(number_of_guests: 0)
+    reservation = Reservation.new(number_of_guests: 0)
 
-    expect(room).to_not be_valid
-    expect(room).to have_error_on(:number_of_guests, :greater_than)
+    expect(reservation).to_not be_valid
+    expect(reservation).to have_error_on(:number_of_guests, :greater_than)
   end
 
   it 'validates that number_of_guests should not be negative' do
-    room = Reservation.new(number_of_guests: -1)
+    reservation = Reservation.new(number_of_guests: -1)
 
-    expect(room).to_not be_valid
-    expect(room).to have_error_on(:number_of_guests, :greater_than)
+    expect(reservation).to_not be_valid
+    expect(reservation).to have_error_on(:number_of_guests, :greater_than)
   end
 
   it 'validates that number_of_guests should not be greater than ten' do
-    room = Reservation.new(number_of_guests: 11)
+    reservation = Reservation.new(number_of_guests: 11)
 
-    expect(room).to_not be_valid
-    expect(room).to have_error_on(:number_of_guests, :less_than_or_equal_to)
+    expect(reservation).to_not be_valid
+    expect(reservation).to have_error_on(:number_of_guests, :less_than_or_equal_to)
   end
 
   it 'validates that start_date is before end_date' do
@@ -65,7 +65,7 @@ RSpec.describe Reservation, type: :model do
   end
 
   it 'validates that start_date is not equal to end_date' do
-    reservation = Reservation.new(start_date: '2020-08-01', end_date: '2020-08-02')
+    reservation = Reservation.new(start_date: '2020-08-01', end_date: '2020-08-01')
 
     expect(reservation).to_not be_valid
     expect(reservation).to have_error_on(:base, :invalid_dates)
@@ -137,5 +137,7 @@ RSpec.describe Reservation, type: :model do
         expect(reservation.code).to eq('101-100')
       end
     end
+
+
   end
 end
