@@ -4,6 +4,7 @@ class Reservation < ApplicationRecord
   validates_presence_of :start_date, :end_date, :guest_name, :number_of_guests
   validates_numericality_of :number_of_guests, greater_than: 0, less_than_or_equal_to: 10
   validate :start_date_is_before_end_date
+  validate :already_reserved
   validate :room_with_insufficient_capacity
 
   def duration
@@ -20,6 +21,14 @@ class Reservation < ApplicationRecord
   end
 
   private
+
+  def already_reserved
+    if start_date.present? && end_date.present? && room_id.present?
+      if Reservation.where("room_id = ? AND start_date < ? AND end_date > ?", room_id, end_date, start_date).any?
+        errors.add(:base, :invalid_dates, message: 'The room is already reserved on these dates')
+      end
+    end
+  end
 
   def room_with_insufficient_capacity
     if room_id.present? && number_of_guests.present? && Room.find(room_id).capacity < number_of_guests
