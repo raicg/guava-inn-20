@@ -1,5 +1,5 @@
 class Room < ApplicationRecord
-  has_many :reservations
+  has_many :reservations, dependent: :destroy
 
   validates_presence_of :code, :capacity
   validates_uniqueness_of :code
