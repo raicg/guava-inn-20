@@ -4,8 +4,13 @@ class ReservationsController < ApplicationController
       params[:end_date].present? &&
       params[:number_of_guests].present? &&
       params[:end_date] > params[:start_date]
-    @available_rooms = @should_show_results ? Room.where('capacity >= ?', params[:number_of_guests]) : Room.none
-  end
+      if @should_show_results
+        @not_available_rooms = Room.joins(:reservations).where('start_date < ? AND end_date > ?', params[:end_date], params[:start_date])
+        @available_rooms = Room.where('capacity >= ?', params[:number_of_guests]) - @not_available_rooms
+      else
+        @available_rooms = Room.none
+      end
+    end
 
   def new
     @reservation = Reservation.new(reservation_params)
