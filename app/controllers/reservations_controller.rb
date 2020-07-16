@@ -2,7 +2,8 @@ class ReservationsController < ApplicationController
   def search
     @should_show_results = params[:start_date].present? &&
       params[:end_date].present? &&
-      params[:number_of_guests].present?
+      params[:number_of_guests].present? &&
+      params[:end_date] > params[:start_date]
     @available_rooms = @should_show_results ? Room.all : Room.none
   end
 
