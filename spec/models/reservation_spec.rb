@@ -138,6 +138,14 @@ RSpec.describe Reservation, type: :model do
       end
     end
 
+    context 'when the room is already reserved' do
+      it 'should not persist the new reservation' do
+        room = Room.create(code: '101')
+        reservation = Reservation.create(start_date: '2020-08-01', end_date: '2020-08-10', number_of_guests: 1, guest_name: 'name', room_id: room.id)
+        reservation2 = Reservation.create(start_date: '2020-08-04', end_date: '2020-08-07', number_of_guests: 1, guest_name: 'name', room_id: room.id)
 
+        expect(reservation2).to_not be_persisted
+      end
+    end
   end
 end
