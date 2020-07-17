@@ -38,6 +38,8 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 3.142'
   # Use factory_bot_rails to help with the tests
   gem 'factory_bot_rails', '5.2.0'
+  # Use pry-rails to help debug
+  gem 'pry-rails', '0.3.9'
 end
 
 group :development do
