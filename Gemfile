@@ -40,6 +40,9 @@ group :development, :test do
   gem 'factory_bot_rails', '5.2.0'
   # Use pry-rails to help debug
   gem 'pry-rails', '0.3.9'
+  # Use rubocop to help with good practices
+  gem 'rubocop-rails', '2.6.0'
+  gem 'rubocop-performance', '1.6.1'
 end
 
 group :development do
