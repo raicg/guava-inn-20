@@ -3,11 +3,13 @@ class RoomsController < ApplicationController
 
   def index
     @rooms = Room.all
-    @global_week_occupation = ((Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 7.days, Date.tomorrow)
-        .map { |r| r.remaing_days_until_custom_date(Date.tomorrow + 7.days) }).inject(0, :+) / @rooms.count) / 7.0 * 100
-    
-    @global_month_occupation = ((Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 30.days, Date.tomorrow)
-        .map { |r| r.remaing_days_until_custom_date(Date.tomorrow + 30.days) }).inject(0, :+) / @rooms.count) / 30.0 * 100
+    if @rooms.any?
+      @global_week_occupation = ((Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 7.days, Date.tomorrow)
+          .map { |r| r.remaing_days_until_custom_date(Date.tomorrow + 7.days) }).inject(0, :+) / @rooms.count) / 7.0 * 100
+      
+      @global_month_occupation = ((Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 30.days, Date.tomorrow)
+          .map { |r| r.remaing_days_until_custom_date(Date.tomorrow + 30.days) }).inject(0, :+) / @rooms.count) / 30.0 * 100
+    end
   end
 
   def show

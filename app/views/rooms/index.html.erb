@@ -4,12 +4,24 @@
   <h2>Global Occupation</h2>
   <div class="global-occupation-box">
     <h3>Week</h3>
-    <span class="global-occupation-rate"><%= @global_week_occupation.round(2) %>%</span><br/>
+    <span class="global-occupation-rate">
+      <% if @global_week_occupation.present? %>
+        <%= @global_week_occupation.round(2) %>%
+      <% else %>
+        0%
+      <% end %>
+    </span><br/>
     <small>in the next 7 days</small>
   </div>
   <div class="global-occupation-box">
     <h3>Month</h3>
-    <span class="global-occupation-rate"><%= @global_month_occupation.round(2) %>%</span><br/>
+    <span class="global-occupation-rate">
+      <% if @global_month_occupation.present? %>
+        <%= @global_month_occupation.round(2) %>%
+      <% else %>
+        0%
+      <% end %>
+    </span><br/>
     <small>in the next 30 days</small>
   </div>
 </section>
