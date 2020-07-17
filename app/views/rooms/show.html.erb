@@ -50,8 +50,8 @@
   </thead>
 
   <tbody>
-    <% if @room.reservations.any? %>
-      <% @room.reservations.each do |reservation| %>
+    <% if @reservations.any? %>
+      <% @reservations.each do |reservation| %>
         <tr>
           <td><%= reservation.code %></td>
           <td><%= l reservation.start_date %> to <%= l reservation.end_date %></td>
@@ -71,6 +71,8 @@
   </tbody>
 </table>
 
+<br/>
+<%= will_paginate @reservations %>
 <br/>
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
