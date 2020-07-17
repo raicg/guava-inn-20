@@ -76,6 +76,10 @@ GEM
     crass (1.0.6)
     database_cleaner (1.8.5)
     diff-lcs (1.4.4)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.9.0)
     factory_bot (5.2.0)
       activesupport (>= 4.2.0)
@@ -225,6 +229,7 @@ DEPENDENCIES
   byebug
   capybara (~> 3.29)
   database_cleaner (= 1.8.5)
+  dotenv-rails (= 2.7.5)
   factory_bot_rails (= 5.2.0)
   ffaker (= 2.12.0)
   jbuilder (~> 2.7)
