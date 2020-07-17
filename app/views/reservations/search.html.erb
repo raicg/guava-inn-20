@@ -1,19 +1,13 @@
 <h2>New Reservation</h2>
 
-<%= form_tag search_reservations_path, method: :get do %>
-  <div class="field">
-    <%= label_tag :start_date, 'From' %>
-    <%= date_field_tag :start_date, params[:start_date] || Date.today %>
-  </div>
 
+<%= simple_form_for(Reservation.new, url: search_reservations_path, method: :get) do |f| %>
   <div class="field">
-    <%= label_tag :end_date, 'To' %>
-    <%= date_field_tag :end_date, params[:end_date] || Date.tomorrow %>
-  </div>
-
-  <div class="field">
-    <%= label_tag :number_of_guests, '# of guests' %>
-    <%= select_tag :number_of_guests, options_for_select(1..10, params[:number_of_guests]) %>
+    <%= f.input :start_date, html5: true, label: 'From', input_html: {value: params[:reservation][:start_date] || Date.today} %>
+    <br/>
+    <%= f.input :end_date, html5: true, label: 'To', input_html: {value: params[:reservation][:end_date] || Date.tomorrow} %>
+    <br/>
+    <%= f.input :number_of_guests, as: :select, collection: 1..10, label: '# of guests', selected: params[:reservation][:number_of_guests] || 1 %>
   </div>
 
   <div class="actions">
@@ -43,9 +37,9 @@
               <td>
                 <%= link_to 'Create Reservation', new_reservation_path( reservation: {
                   room_id: room.id,
-                  start_date: params[:start_date],
-                  end_date: params[:end_date],
-                  number_of_guests: params[:number_of_guests],
+                  start_date: params[:reservation][:start_date],
+                  end_date: params[:reservation][:end_date],
+                  number_of_guests: params[:reservation][:number_of_guests],
                 }) %>
               </td>
             </tr>
