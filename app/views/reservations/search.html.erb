@@ -3,11 +3,11 @@
 
 <%= simple_form_for(Reservation.new, url: search_reservations_path, method: :get) do |f| %>
   <div class="field">
-    <%= f.input :start_date, html5: true, label: 'From', input_html: {value: params[:reservation][:start_date] || Date.today} %>
+    <%= f.input :start_date, html5: true, label: 'From', input_html: {value: params.dig(:reservation, :start_date) || Date.today} %>
     <br/>
-    <%= f.input :end_date, html5: true, label: 'To', input_html: {value: params[:reservation][:end_date] || Date.tomorrow} %>
+    <%= f.input :end_date, html5: true, label: 'To', input_html: {value: params.dig(:reservation, :end_date) || Date.tomorrow} %>
     <br/>
-    <%= f.input :number_of_guests, as: :select, collection: 1..10, label: '# of guests', selected: params[:reservation][:number_of_guests] || 1 %>
+    <%= f.input :number_of_guests, as: :select, collection: 1..10, label: '# of guests', selected: params.dig(:reservation, :number_of_guests) || 1 %>
   </div>
 
   <div class="actions">
@@ -37,9 +37,9 @@
               <td>
                 <%= link_to 'Create Reservation', new_reservation_path( reservation: {
                   room_id: room.id,
-                  start_date: params[:reservation][:start_date],
-                  end_date: params[:reservation][:end_date],
-                  number_of_guests: params[:reservation][:number_of_guests],
+                  start_date: params.dig(:reservation, :start_date),
+                  end_date: params.dig(:reservation, :end_date),
+                  number_of_guests: params.dig(:reservation, :number_of_guests),
                 }) %>
               </td>
             </tr>
@@ -52,6 +52,8 @@
   </section>
 <% end %>
 
+<br/>
+<%= will_paginate @available_rooms %>
 <br/>
 
 <%= link_to 'Back', root_path %>
