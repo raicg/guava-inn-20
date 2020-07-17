@@ -53,7 +53,7 @@ Reservation.create!(
   guest_name: 'Rafaela Silva',
   number_of_guests: 4,
   start_date: '2020-07-28',
-  end_date: '2020-07-31',
+  end_date: '2020-07-30',
 )
 
 Reservation.create!(
@@ -67,7 +67,7 @@ Reservation.create!(
 Reservation.create!(
   room: room_102,
   guest_name: 'Carolina Queiroz',
-  number_of_guests: 5,
+  number_of_guests: 4,
   start_date: '2020-08-04',
   end_date: '2020-08-10',
 )
