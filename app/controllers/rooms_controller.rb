@@ -2,7 +2,7 @@ class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   def index
-    @rooms = Room.all
+    @rooms = Room.all.paginate(page: params[:page])
     if @rooms.any?
       @occupations_per_room_on_week = {}
       @grouped_reservations_on_week = Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 7.days, Date.tomorrow).group_by { |r| r.room_id }
@@ -22,6 +22,7 @@ class RoomsController < ApplicationController
   end
 
   def show
+    @reservations = @room.reservations.paginate(page: params[:page])
     @room_week_occupation = (Reservation.where(room: @room).where.not('start_date > ? OR end_date < ?', Date.tomorrow + 7.days, Date.tomorrow)
         .map { |r| r.remaing_days_until_custom_date(Date.tomorrow + 7.days) }).inject(0, :+) / 7.0 * 100
 

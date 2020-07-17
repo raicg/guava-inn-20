@@ -24,6 +24,9 @@ gem 'dotenv-rails', '2.7.5'
 # Use simple_form to handle the forms of the objects
 gem 'simple_form', '5.0.1'
 
+# Use will_paginate to paginate objects
+gem 'will_paginate', '3.2.1'
+
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
