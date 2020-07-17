@@ -17,6 +17,10 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
+
+# Use dotenv-rails as environment variables manager
+gem 'dotenv-rails', '2.7.5'
+
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
