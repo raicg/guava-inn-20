@@ -32,6 +32,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.9'
   gem 'capybara', '~> 3.29'
   gem 'selenium-webdriver', '~> 3.142'
+  # Use factory_bot_rails to help with the tests
+  gem 'factory_bot_rails', '5.2.0'
 end
 
 group :development do
@@ -41,6 +43,13 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do 
+  # Use database_cleaner to erase tests database
+  gem 'database_cleaner', '1.8.5'
+  # Use FFaker to help with factory_bot
+  gem 'ffaker', '2.12.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
