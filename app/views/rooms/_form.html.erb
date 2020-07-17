@@ -1,32 +1,18 @@
-<%= form_with(model: room, local: true) do |form| %>
-  <% if room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
+<%= simple_form_for(@room) do |f| %>
+  <%= render "shared/error_messages", resource: @room %>
 
-      <ul>
-        <% room.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :code %>
-    <%= form.text_field :code %>
+  <div class="form-inputs">
+    <%= f.input :code %>
+    <br/>
+    <%= f.input :capacity, as: :select, collection: 1..10, default: 1 %>
+    <br/>
+    <%= f.input :notes %>
   </div>
 
-  <div class="field">
-    <%= form.label :capacity %>
-    <%= form.select :capacity, options_for_select(1..10, form.object.capacity) %>
-  </div>
+  <br/>
 
-  <div class="field">
-    <%= form.label :notes %>
-    <%= form.text_area :notes %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
 <% end %>
+

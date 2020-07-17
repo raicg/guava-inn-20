@@ -1,47 +1,25 @@
 <h2>New Reservation</h2>
 
-<%= form_with(model: @reservation, local: true) do |form| %>
-  <% if @reservation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+<%= simple_form_for(@reservation) do |f| %>
+  <%= render "shared/error_messages", resource: @reservation %>
 
-      <ul>
-        <% @reservation.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :start_date %>
-    <%= form.date_field :start_date %>
+  <div class="form-inputs">
+    <%= f.input :start_date, html5: true, input_html: {value: params[:reservation][:start_date]} %>
+    <br/>
+    <%= f.input :end_date, html5: true, input_html: {value: params[:reservation][:end_date]} %>
+    <br/>
+    <%= f.input :number_of_guests, as: :select, collection: 1..10, selected: params[:reservation][:number_of_guests] %>
+    <br/>
+    <%= f.input :room_id, as: :select, collection: Room.all.map { |room| [room.code, room.id] } %>
+    <br/>
+    <%= f.input :guest_name %>
   </div>
 
-  <div class="field">
-    <%= form.label :end_date %>
-    <%= form.date_field :end_date %>
-  </div>
+  <br/>
 
-  <div class="field">
-    <%= form.label :number_of_guests %>
-    <%= form.select :number_of_guests, options_for_select(1..10, params.dig(:reservation, :number_of_guests)) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :room_id %>
-    <%= form.select :room_id, options_from_collection_for_select(Room.all, :id, :code, params.dig(:reservation, :room_id)) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :guest_name %>
-    <%= form.text_field :guest_name %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
 <% end %>
-
 
 <%= link_to 'Back', :back %>

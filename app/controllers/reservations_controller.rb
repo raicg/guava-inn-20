@@ -1,12 +1,12 @@
 class ReservationsController < ApplicationController
   def search
-    @should_show_results = params[:start_date].present? &&
-      params[:end_date].present? &&
-      params[:number_of_guests].present? &&
-      params[:end_date] > params[:start_date]
+    @should_show_results = reservation_params[:start_date].present? &&
+      reservation_params[:end_date].present? &&
+      reservation_params[:number_of_guests].present? &&
+      reservation_params[:end_date] > reservation_params[:start_date]
     if @should_show_results
-      @not_available_rooms = Room.joins(:reservations).where('start_date < ? AND end_date > ?', params[:end_date], params[:start_date])
-      @available_rooms = Room.where('capacity >= ?', params[:number_of_guests]) - @not_available_rooms
+      @not_available_rooms = Room.joins(:reservations).where('start_date < ? AND end_date > ?', reservation_params[:end_date], reservation_params[:start_date])
+      @available_rooms = Room.where('capacity >= ?', reservation_params[:number_of_guests]) - @not_available_rooms
     else
       @available_rooms = Room.none
     end
