@@ -147,5 +147,11 @@ RSpec.describe Reservation, type: :model do
         expect(reservation2).to_not be_persisted
       end
     end
+
+    it 'remaing_days_until_custom_date method should returns the remaing days' do
+      reservation = Reservation.new(start_date: '2020-08-01', end_date: '2020-08-10')
+
+      expect(reservation.remaing_days_until_custom_date(Date.parse('2020-08-6'))).to eq(5)
+    end
   end
 end
