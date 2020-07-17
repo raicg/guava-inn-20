@@ -1,16 +1,16 @@
 class ReservationsController < ApplicationController
   def search
-    @should_show_results = reservation_params[:start_date].present? &&
-      reservation_params[:end_date].present? &&
-      reservation_params[:number_of_guests].present? &&
-      reservation_params[:end_date] > reservation_params[:start_date]
+    @should_show_results = params.dig(:reservation, :start_date).present? &&
+      params.dig(:reservation, :end_date).present? &&
+      params.dig(:reservation, :number_of_guests).present? &&
+      params.dig(:reservation, :end_date) > params.dig(:reservation, :start_date)
     if @should_show_results
-      @not_available_rooms = Room.joins(:reservations).where('start_date < ? AND end_date > ?', reservation_params[:end_date], reservation_params[:start_date])
-      @available_rooms = Room.where('capacity >= ?', reservation_params[:number_of_guests]) - @not_available_rooms
+      @not_available_rooms = Room.joins(:reservations).where('start_date < ? AND end_date > ?', params.dig(:reservation, :end_date), params.dig(:reservation, :start_date))
+      @available_rooms = (Room.where('capacity >= ?', params.dig(:reservation, :number_of_guests)) - @not_available_rooms).paginate(page: params[:page])
     else
-      @available_rooms = Room.none
+      @available_rooms = Room.none.paginate(page: params[:page])
     end
-    end
+  end
 
   def new
     @reservation = Reservation.new(reservation_params)
