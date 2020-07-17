@@ -7,8 +7,8 @@ RSpec.describe 'Rooms', type: :system do
 
   describe 'listing' do
     context 'when there are rooms' do
-      let!(:room){ create(:room) }
-      let!(:room2){ create(:room) }
+      let!(:room) { create(:room) }
+      let!(:room2) { create(:room) }
 
       it 'shows all rooms in the system with their respective details' do
         visit rooms_path
@@ -66,7 +66,7 @@ RSpec.describe 'Rooms', type: :system do
         expect(page).to have_link('New Reservation', href: search_reservations_path)
       end
     end
-    
+
     context 'when there are no rooms' do
       it 'shows an empty listing' do
         visit rooms_path
@@ -107,10 +107,10 @@ RSpec.describe 'Rooms', type: :system do
   end
 
   describe 'show room' do
-    let!(:room){ create(:room) }
+    let!(:room) { create(:room) }
 
     context 'when there are reservations' do
-      let!(:reservation){ create(:reservation) }
+      let!(:reservation) { create(:reservation) }
 
       it 'shows the details of a room including its reservations' do
         visit room_path(room.id)
@@ -132,7 +132,7 @@ RSpec.describe 'Rooms', type: :system do
 
           within('tbody tr:first-child') do
             expect(page).to have_content("#{reservation.code}")
-            expect(page).to have_content("#{reservation.start_date.to_s} to #{reservation.end_date.to_s}")
+            expect(page).to have_content("#{reservation.start_date} to #{reservation.end_date}")
             expect(page).to have_content("#{reservation.duration} nights")
             expect(page).to have_content(reservation.guest_name)
             expect(page).to have_content("#{reservation.number_of_guests} guest")
@@ -181,7 +181,7 @@ RSpec.describe 'Rooms', type: :system do
   end
 
   describe 'edit room' do
-    let!(:room){ create(:room) }
+    let!(:room) { create(:room) }
 
     it 'allows users to change attributes of a room' do
       visit edit_room_path(room.id)

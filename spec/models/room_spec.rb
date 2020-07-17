@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
-  let!(:room){ create(:room) }
+  let!(:room) { create(:room) }
 
   it 'validates presence of code' do
     room.update(code: nil)
@@ -12,7 +12,7 @@ RSpec.describe Room, type: :model do
   end
 
   describe 'when you create a second room with the same code' do
-    let!(:room2){ create(:room) }
+    let!(:room2) { create(:room) }
 
     it 'validates uniqueness of code' do
       room2.update(code: room.code)

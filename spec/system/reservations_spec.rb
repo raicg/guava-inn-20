@@ -48,15 +48,15 @@ RSpec.describe 'Reservations', type: :system do
     context 'after search for available rooms' do
       before do
         click_on 'Create Reservation'
-        
+
         expect(page).to have_content('New Reservation')
 
-        fill_in 'Guest name', with: FFaker::Name.name 
+        fill_in 'Guest name', with: FFaker::Name.name
         click_on 'Create Reservation'
         @reservation = Reservation.last
       end
 
-      it 'allows users to create new reservations' do  
+      it 'allows users to create new reservations' do
         expect(page).to have_content("Room #{room.code}")
 
         within('table') do
@@ -79,7 +79,7 @@ RSpec.describe 'Reservations', type: :system do
           end
         end
       end
-      
+
       context 'after create a reservation' do
         it 'allows users to delete reservations' do
           within('tbody tr:last-child') do
