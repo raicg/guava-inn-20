@@ -3,11 +3,22 @@ class RoomsController < ApplicationController
 
   def index
     @rooms = Room.all
-    @global_week_occupation = ((Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 7.days, Date.tomorrow)
-        .map { |r| r.remaing_days_until_custom_date(Date.tomorrow + 7.days) }).inject(0, :+) / @rooms.count) / 7.0 * 100
-    
-    @global_month_occupation = ((Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 30.days, Date.tomorrow)
-        .map { |r| r.remaing_days_until_custom_date(Date.tomorrow + 30.days) }).inject(0, :+) / @rooms.count) / 30.0 * 100
+    if @rooms.any?
+      @occupations_per_room_on_week = {}
+      @grouped_reservations_on_week = Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 7.days, Date.tomorrow).group_by{ |r| r.room_id }
+      @grouped_reservations_on_week.each do |reservations|
+        @occupations_per_room_on_week[reservations[0]] = reservations[1].map{ |reservation| reservation.remaing_days_until_custom_date(Date.tomorrow + 7.days) }.inject(0, :+) / 7.0 * 100
+      end
+      
+      @occupations_per_room_on_month = {}
+      @grouped_reservations_on_month = Reservation.where.not('start_date > ? OR end_date < ?', Date.tomorrow + 30.days, Date.tomorrow).group_by{ |r| r.room_id }
+      @grouped_reservations_on_month.each do |reservations|
+        @occupations_per_room_on_month[reservations[0]] = reservations[1].map{ |reservation| reservation.remaing_days_until_custom_date(Date.tomorrow + 30.days) }.inject(0, :+) / 30.0 * 100 
+      end
+      
+      @global_week_occupation = @occupations_per_room_on_week.map{ |occupation| occupation[1] }.inject(0, :+) / @rooms.count
+      @global_month_occupation = @occupations_per_room_on_month.map{ |occupation| occupation[1] }.inject(0, :+) / @rooms.count
+    end
   end
 
   def show

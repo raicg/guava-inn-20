@@ -14,12 +14,20 @@
 
 <p>
   <strong>Occupation Rate (Week):</strong>
-  <%= @room_week_occupation.round(2) %>%
+  <% if @room_week_occupation.present? %>
+    <%= @room_week_occupation.round(2) %>%
+  <% else %>
+    0%
+  <% end %>
 </p>
 
 <p>
   <strong>Occupation Rate (Month):</strong>
-  <%= @room_month_occupation.round(2) %>%
+  <% if @room_month_occupation.present? %>
+    <%= @room_month_occupation.round(2) %>%
+  <% else %>
+    0%
+  <% end %>
 </p>
 
 <p>
