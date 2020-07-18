@@ -1,3 +1,22 @@
+
+# Novas gems instaladas
+1. factory_bot_rails: usada para facilitar a criação e manutenção nos testes, facilitando criar objetos;
+
+1. database_cleaner: usada para facilitar os testes, apagando o banco de dados a cada teste;
+
+1. ffaker: usada para integrar ao factory_bot_rails e facilitar a criação de objetos;
+
+1. pry-rails: usada para facilitar a busca de bugs na aplicação;
+
+1. rubocop-rails e rubocop-performance: usada para garantir o uso de boas práticas no código;
+
+1. dotenv-rails: usada para armazenar as variáveis de ambiente;
+
+1. simple_form: usada para facilitar a criação de formulários;
+
+1. will_paginate: usada para realizar a paginação dos objetos;
+
+
 # README
 
 Bem-vindo ao teste de back-end da Guava. A aplicação deste repositório simula um sistema de gerenciamento de reservas para uma pequena pousada. Assuma que o sistema tem apenas um usuário: o funcionário que administra a pousada. O teste consiste em implementar correções e melhorias nesta aplicação, descritas pelas duas estórias de usuário a seguir.
