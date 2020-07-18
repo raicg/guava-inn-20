@@ -7,6 +7,10 @@ class Reservation < ApplicationRecord
   validate :already_reserved
   validate :room_with_insufficient_capacity
 
+  scope :of_the_week, -> { where.not('start_date > ? OR end_date < ?', Date.tomorrow + 7.days, Date.tomorrow) }
+  scope :of_the_month, -> { where.not('start_date > ? OR end_date < ?', Date.tomorrow + 30.days, Date.tomorrow) }
+  
+
   def duration
     if start_date.present? && end_date.present? && end_date > start_date
       (end_date - start_date).to_i
@@ -44,7 +48,7 @@ class Reservation < ApplicationRecord
 
   def already_reserved
     if start_date.present? && end_date.present? && room_id.present?
-      if Reservation.where("room_id = ? AND start_date < ? AND end_date > ?", room_id, end_date, start_date).any?
+      if (Reservation.where("room_id = ? AND start_date < ? AND end_date > ?", room_id, end_date, start_date)).any?
         errors.add(:base, :invalid_dates, message: 'The room is already reserved on these dates')
       end
     end
