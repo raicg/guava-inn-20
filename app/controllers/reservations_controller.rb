@@ -5,8 +5,9 @@ class ReservationsController < ApplicationController
       params.dig(:reservation, :number_of_guests).present? &&
       params.dig(:reservation, :end_date) > params.dig(:reservation, :start_date)
     if @should_show_results
-      @not_available_rooms = Room.joins(:reservations).where('start_date < ? AND end_date > ?', params.dig(:reservation, :end_date), params.dig(:reservation, :start_date))
-      @available_rooms = (Room.where('capacity >= ?', params.dig(:reservation, :number_of_guests)) - @not_available_rooms).paginate(page: params[:page])
+      @not_available_rooms = Room.not_available(params.dig(:reservation, :start_date), params.dig(:reservation, :end_date))
+      @available_rooms = Room.with_capacity(params.dig(:reservation, :number_of_guests)) - @not_available_rooms
+      @available_rooms = @available_rooms.paginate(page: params[:page])
     else
       @available_rooms = Room.none.paginate(page: params[:page])
     end
