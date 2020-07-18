@@ -1,3 +1,6 @@
+# Demo
+https://guava-inn-20.herokuapp.com/
+
 
 # Novas gems instaladas
 1. factory_bot_rails: usada para facilitar a criação e manutenção nos testes, facilitando criar objetos;
