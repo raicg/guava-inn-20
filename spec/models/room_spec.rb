@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
-  let!(:room) { create(:room) }
+  let!(:room) { create(:room, capacity: 1) }
 
   it 'validates presence of code' do
     room.update(code: nil)
@@ -53,5 +53,23 @@ RSpec.describe Room, type: :model do
 
     expect(room).to have_error_on(:capacity, :less_than_or_equal_to)
     expect(room.capacity).to_not eq(20)
+  end
+
+  describe 'testing scopes' do
+    let!(:room2) { create(:room, capacity: 5) }
+    
+    context 'scope: with_capacity' do
+      it 'should shows all rooms with capacity for the number of guests' do
+        expect(Room.with_capacity(4).size).to eq(1)
+      end
+    end
+
+    context 'scope: not_available' do
+      let!(:reservation) { create(:reservation, start_date: Date.tomorrow, end_date: Date.tomorrow + 5.days) }
+
+      it 'should shows all rooms not available for certain date' do
+        expect(Room.not_available(Date.tomorrow, Date.tomorrow + 5.days).size).to eq(1)
+      end
+    end
   end
 end
